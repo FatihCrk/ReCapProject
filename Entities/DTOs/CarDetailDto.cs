@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 namespace Entities.DTOs
 {
     public  class CarDetailDto
-    {
+    { //2:33
     }
 }
