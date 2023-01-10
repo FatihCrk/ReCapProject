@@ -4,22 +4,25 @@ using Business.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 
-//CarTest();
-BrandManager bm = new BrandManager(new EfBrandDal());
 
-foreach (var brand in bm.GetAll())
-{
-    Console.WriteLine(brand.BrandName);
-}
+//BrandManager bm = new BrandManager(new EfBrandDal());
+
+//foreach (var brand in bm.GetAll())
+//{
+//    Console.WriteLine(brand.BrandName);
+//}
+
+CarTest();
+
 
 static void CarTest()
 {
     CarManager cm = new CarManager(new EfCarDal());
 
 
-    foreach (var car in cm.GetAllByDealyPrice(0))
+    foreach (var car in cm.GetAllByCarDetails())
     {
-        Console.WriteLine(car.DailyPrice);
+        Console.WriteLine(car.CarName + "--" + car.BrandName + " *** " + car.ColorName);
     }
 }
 
