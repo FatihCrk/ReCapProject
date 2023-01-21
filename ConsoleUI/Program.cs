@@ -3,6 +3,7 @@
 using Business.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
+using Entities.Concrete;
 
 
 //BrandManager bm = new BrandManager(new EfBrandDal());
@@ -19,10 +20,20 @@ static void CarTest()
 {
     CarManager cm = new CarManager(new EfCarDal());
 
+    var result = cm.GetAllByCarDetails();
 
-    foreach (var car in cm.GetAllByCarDetails())
+    if (result.Success == true)
     {
-        Console.WriteLine(car.CarName + "--" + car.BrandName + " *** " + car.ColorName);
+        foreach (var carDetailDto in result.Data)
+        {
+            Console.WriteLine(carDetailDto.CarName + "--" + carDetailDto.BrandName + " *** " + carDetailDto.ColorName);
+        }
     }
+    else { Console.WriteLine(result.Message); }
+
+    //foreach (var car in cm.GetAllByCarDetails().Data)
+    //{
+    //    Console.WriteLine(car.CarName + "--" + car.BrandName + " *** " + car.ColorName);
+    //}
 }
 
