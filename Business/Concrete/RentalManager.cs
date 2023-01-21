@@ -24,7 +24,7 @@ namespace Business.Concrete
 
         public IResult Add(Rental rental)
         {
-            if ( rental.ReturnDate == null || DateTime.Now < rental.ReturnDate )
+            if ( rental.ReturnDate == null || DateTime.Now > rental.ReturnDate )
             {
                 _rentalDal.Add(rental);
                 return new SuccessResult(Messages.RentalSuccess);
