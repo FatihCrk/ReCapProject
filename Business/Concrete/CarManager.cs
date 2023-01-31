@@ -44,7 +44,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Car>> GetAll()
         {
-            if (DateTime.Now.Hour == 17)
+            if (DateTime.Now.Hour == 00)
             {
                 return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
             }
@@ -54,8 +54,6 @@ namespace Business.Concrete
 
         public IDataResult<List<Car>> GetAllByBrandId(int id)
         {
-
-
 
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(b => b.BrandId == id));
         }
@@ -96,7 +94,7 @@ namespace Business.Concrete
             using (ReCapProjectContext context = new ReCapProjectContext())
             {
 
-                if (car.CarName.Length <= 2)
+                if (car.CarName.Length >= 2)
                 {
                     var updatedCarname = context.Entry(car);
                     updatedCarname.State = EntityState.Modified;
