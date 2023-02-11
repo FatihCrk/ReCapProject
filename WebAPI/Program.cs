@@ -1,5 +1,8 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Business.Abstract;
 using Business.Concrete;
+using Business.DependencyResolvers.Autofac;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 
@@ -8,10 +11,15 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddSingleton<ICarService, CarManager>();
-builder.Services.AddSingleton<ICarDal,EfCarDal>();
-builder.Services.AddSingleton<IUserService, UserManager>(); 
-builder.Services.AddSingleton<IUserDal,EfUserDal>();
+//builder.Services.AddSingleton<ICarService, CarManager>();
+//builder.Services.AddSingleton<ICarDal,EfCarDal>();
+//builder.Services.AddSingleton<IUserService, UserManager>(); 
+//builder.Services.AddSingleton<IUserDal,EfUserDal>();
+
+//Saðlayýcý Autofac sync. 
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+builder.Host.ConfigureContainer<ContainerBuilder>(builder => builder.RegisterModule(new AutofacBusinessModule()));
+
 
 
 
