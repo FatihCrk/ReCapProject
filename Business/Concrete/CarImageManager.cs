@@ -29,11 +29,16 @@ namespace Business.Concrete
         }
         public IResult Add(IFormFile file, CarImage carImage)
         {
-            IResult result = BusinessRules.Run(CheckIfCarImageLimit(carImage.CarId));
+
+
+            IResult result = BusinessRules.Run(CheckFileExtension(file.FileName), CheckIfCarImageLimit(carImage.CarId));
             if (result != null)
             {
                 return result;
             }
+
+         
+
             carImage.ImagePath = _fileHelper.Upload(file, PathConstants.ImagesPath);
             carImage.AddedDate = DateTime.Now;
             _carImageDal.Add(carImage);
@@ -48,6 +53,8 @@ namespace Business.Concrete
         }
         public IResult Update(IFormFile file, CarImage carImage)
         {
+            BusinessRules.Run(CheckFileExtension(file.FileName));
+
             carImage.ImagePath = _fileHelper.Update(file, PathConstants.ImagesPath + carImage.ImagePath, PathConstants.ImagesPath);
             _carImageDal.Update(carImage);
             return new SuccessResult(Messages.CarImageUpdated);
@@ -55,7 +62,7 @@ namespace Business.Concrete
 
         public IDataResult<List<CarImage>> GetByCarId(int carId)
         {
-            var result = BusinessRules.Run(CheckCarImage(carId));
+            var result = BusinessRules.Run( CheckCarImage(carId));
             if (result != null)
             {
                 return new ErrorDataResult<List<CarImage>>(GetDefaultImage(carId).Data);
@@ -96,6 +103,24 @@ namespace Business.Concrete
                 return new SuccessResult();
             }
             return new ErrorResult();
+        }
+
+
+        private IResult CheckFileExtension(string fileName)
+        {
+
+            var allowedExtensions = new string[] { ".jpeg", ".png", ".gif", ".bmp", ".jpg" };
+
+            string checkedExtensionType = Path.GetExtension(fileName);
+            if (!allowedExtensions.Contains(checkedExtensionType))
+            {
+                return new ErrorResult(Messages.UnsupoortedImageExtension);
+
+            }
+
+            return new SuccessResult();
+
+
         }
     }
 }
