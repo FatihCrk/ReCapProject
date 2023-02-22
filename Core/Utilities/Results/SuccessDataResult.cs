@@ -26,7 +26,7 @@ namespace Core.Utilities.Results
 
         }
         //Hiçbirşey vermeden de kullanılabilir
-        public SuccessDataResult() : base(default, true)
+        public SuccessDataResult() : base(default , true)
         {
 
         }

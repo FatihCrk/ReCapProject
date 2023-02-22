@@ -44,7 +44,7 @@ namespace Business.Constants
         public static string CarImageAdded = "Araç fotoğrafı eklendi";
         public static string CarImageDeleted = "Araç fotoğrafı silindi";
         public static string CarImageUpdated = "Araç fotoğrafı güncellendi";
-        public static string CarImageLimitExceeded = "Araç fotoğrafı limiti aşıldı";
+        public static string CarImageLimitExceeded = "Araç fotoğrafı limiti aşıldı. En fazla 5 resim ekleyebilirsiniz";
         public static string AuthorizationDenied = "Yetkiniz yok";
         public static string UserRegistered = "Kayıt oldu";
         public static string UserNotFound = "Kullanıcı bulunamadı";
@@ -54,6 +54,14 @@ namespace Business.Constants
         public static string AccessTokenCreated = "Token oluşturuldu";
         public static string PriceMustBeGreaterThan = "Araç Fiyatı 10'dan büyük olmalıdır.";
 
+        public static string CarCountOfBrandError = "Marka Sayısı 10'u geçemez.";
 
+        public static string ThereIsAVehicleWithSameName = "Aynı İsimde araç var";
+
+        public static string BrandLimitExceeded = "Marka sınırı: 10'dan fazla olduğu için araç eklenemedi.";
+
+        public static string CarsNotListed = "Arabalar Listelenemedi.";
+
+     
     }
 }

@@ -1,6 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using Business.Concrete;
+using Core.Utilities.Helpers;
+using Core.Utilities.Helpers.FileHelper;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
@@ -18,18 +20,20 @@ CarTest();
 
 static void CarTest()
 {
-    CarManager cm = new CarManager(new EfCarDal());
+    //CarManager cm = new CarManager(new EfCarDal(),
+    //                               new BrandManager(new EfBrandDal()),
+    //                               new CarImageManager(new EfCarImageDal()) );
 
-    var result = cm.GetAllByCarDetails();
+    //var result = cm.GetAllByCarDetails();
 
-    if (result.Success == true)
-    {
-        foreach (var carDetailDto in result.Data)
-        {
-            Console.WriteLine(carDetailDto.CarName + "--" + carDetailDto.BrandName + " *** " + carDetailDto.ColorName);
-        }
-    }
-    else { Console.WriteLine(result.Message); }
+    //if (result.Success == true)
+    //{
+    //    foreach (var carDetailDto in result.Data)
+    //    {
+    //        Console.WriteLine(carDetailDto.CarName + "--" + carDetailDto.BrandName + " *** " + carDetailDto.ColorName);
+    //    }
+    //}
+    //else { Console.WriteLine(result.Message); }
 
     //foreach (var car in cm.GetAllByCarDetails().Data)
     //{

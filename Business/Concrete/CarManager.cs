@@ -2,6 +2,7 @@
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
@@ -13,34 +14,51 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Business.Concrete
 {
     public class CarManager : ICarService
     {
         ICarDal _carDal;
+        IBrandService _brandService;
+        ICarImageService _carImageService;
 
-        public CarManager(ICarDal cardal)
+        public CarManager(ICarDal cardal, IBrandService brandService, ICarImageService carImageService)
         {
             _carDal = cardal;
+            _brandService = brandService;
+            _carImageService = carImageService;
+
         }
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-        
-          
+            IResult result = BusinessRules.Run(
+
+                CheckIfCarCountOfBrand(car.BrandId), 
+                VehicleControlWithTheSameName(car.CarName), 
+                CheckingTheNumberOfBrands(car.BrandId)
+
+              );
 
 
+            if (result != null)
+            {
+                return result;
+            }
+
+           
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
-    
         }
 
         public IResult Delete(Car car)
         {
-          _carDal.Delete(car);
+            _carDal.Delete(car);
 
             return new SuccessResult(Messages.CarDeleted);
         }
@@ -52,7 +70,7 @@ namespace Business.Concrete
                 return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
             }
 
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(),Messages.CarListed);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarListed);
         }
 
         public IDataResult<List<Car>> GetAllByBrandId(int id)
@@ -73,9 +91,9 @@ namespace Business.Concrete
 
         public IDataResult<List<Car>> GetAllByDealyPrice(int dailyPrice)
         {
-            if (dailyPrice <10)
+            if (dailyPrice < 10)
             {
-                return new ErrorDataResult<List<Car>>(Messages.PriceMustBeGreaterThan) ;
+                return new ErrorDataResult<List<Car>>(Messages.PriceMustBeGreaterThan);
             }
 
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(g => g.DailyPrice == dailyPrice));
@@ -106,5 +124,45 @@ namespace Business.Concrete
                 throw new Exception("Araç ismi min 2 karakter olmalıdır.");
             }
         }
+
+
+        private IResult CheckIfCarCountOfBrand(int brandId)
+        {
+            var result = _carDal.GetAll(c => c.BrandId <= brandId).Count;
+            if (result >= 10)
+            {
+                return new ErrorResult(Messages.CarCountOfBrandError);
+            }
+            return new SuccessResult();
+        }
+
+        private IResult VehicleControlWithTheSameName(string carName)
+        {
+            var result = _carDal.GetAll(c => c.CarName == carName).Any();
+            if (result)
+            {
+                return new ErrorResult(Messages.ThereIsAVehicleWithSameName);
+            }
+
+            return new SuccessResult();
+        }
+
+
+        private IResult CheckingTheNumberOfBrands(int brandId) {
+
+            var result = _brandService.GetAll().Data;
+
+            if (result.Count() >= 10)
+            {
+
+                return new ErrorResult(Messages.BrandLimitExceeded);
+            }
+
+            return new SuccessResult();
+        
+        }
+
+
+       
     }
 }

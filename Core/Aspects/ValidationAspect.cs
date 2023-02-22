@@ -22,6 +22,8 @@ namespace Core.Aspects
 
             _validatorType = validatorType;
         }
+
+        //Validation is done at the beginning of the method.
         protected override void OnBefore(IInvocation invocation)
         {
             var validator = (IValidator)Activator.CreateInstance(_validatorType);
