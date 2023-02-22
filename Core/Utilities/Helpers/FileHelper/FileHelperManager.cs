@@ -13,8 +13,8 @@ namespace Core.Utilities.Helpers.FileHelper
         public void Delete(string filePath)
         {//if kontrolü ile parametrede gelen adreste öyle bir dosya var mı diye kontrol ediliyor.
             if (File.Exists(filePath))
-            {
-                File.Delete(filePath);//Eğer dosya var ise dosya bulunduğu yerden siliniyor.
+            {//Eğer dosya var ise dosya bulunduğu yerden siliniyor.
+                File.Delete(filePath);
             }
         }
 
