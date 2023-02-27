@@ -63,5 +63,7 @@ namespace Business.Constants
         public static string CarsNotListed = "Arabalar Listelenemedi.";
 
         public static string UnsupoortedImageExtension = "Dosya türü desteklenmediği için eklenemedi.";
+
+
     }
 }

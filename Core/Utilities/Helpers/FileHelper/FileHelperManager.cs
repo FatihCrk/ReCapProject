@@ -32,13 +32,13 @@ namespace Core.Utilities.Helpers.FileHelper
             }
 
             // Eski dosya silindikten sonra yerine geçecek yeni dosyaiçin alttaki *Upload* metoduna yeni dosya ve kayıt edileceği adres parametre olarak döndürülüyor.
-            return Upload(file, root);  
+            return Upload(file, root);
         }
 
         public string Upload(IFormFile file, string root)
         {
 
-         
+
 
 
 
@@ -52,13 +52,13 @@ namespace Core.Utilities.Helpers.FileHelper
                 //*Check if a directory Exists* ifadesi: Dosyanın kaydedileceği adres dizini var mı? kontrol ediyor
                 //varsa if yapısının kod bloğundan ayrılır eğer yoksa içinde ki kodda dosyaların kayıt edilecek dizini oluşturur.
                 if (!Directory.Exists(root))
-                {                           
-                                          
+                {
+
                     Directory.CreateDirectory(root);
                 }
                 //Path.GetExtension(file.FileName)=>> Seçmiş olduğumuz dosyanın uzantısını elde ediyoruz.
                 string extension = Path.GetExtension(file.FileName);
-             
+
 
                 //Core.Utilities.Helpers.GuidHelper klasürünün içinde ki GuidManager klasörüne giderseniz GUID bir değer türetildiğini görürsünüz.
                 string guid = GuidHelper.GuidHelper.CreateGuid();
@@ -80,6 +80,6 @@ namespace Core.Utilities.Helpers.FileHelper
         }
 
 
-      
+
     }
 }
