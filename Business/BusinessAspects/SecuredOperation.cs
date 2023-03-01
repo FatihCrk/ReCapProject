@@ -1,10 +1,11 @@
 ﻿using Business.Constants;
 using Castle.DynamicProxy;
-using Core.Extension;
+
 using Core.Utilities.Interceptors;
 using Core.Utilities.IoC;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Core.Extension;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,6 @@ namespace Business.BusinessAspects
 
             //windows formda kullanmak için.
             _httpContextAccessor = ServiceTool.ServiceProvider.GetService<IHttpContextAccessor>();
-
         }
 
         protected override void OnBefore(IInvocation invocation)
