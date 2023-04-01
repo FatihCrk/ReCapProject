@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Aspects
+namespace Core.Aspects.Validation
 {
     public class ValidationAspect : MethodInterception
     {
@@ -17,7 +17,7 @@ namespace Core.Aspects
         {
             if (!typeof(IValidator).IsAssignableFrom(validatorType))
             {
-                throw new System.Exception("Bu Doğrumalama Sınıfı Değildir.!!");
+                throw new Exception("Bu Doğrumalama Sınıfı Değildir.!!");
             }
 
             _validatorType = validatorType;

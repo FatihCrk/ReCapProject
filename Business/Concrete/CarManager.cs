@@ -3,6 +3,9 @@ using Business.BusinessAspects;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects;
+using Core.Aspects.Caching;
+using Core.Aspects.Performance;
+using Core.Aspects.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -38,6 +41,8 @@ namespace Business.Concrete
 
         [SecuredOperation("car.add,admin")]
         [ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("IProductService.Get")]
+        [PerformanceAspect(5)]
         public IResult Add(Car car)
         {
             IResult result = BusinessRules.Run(
@@ -66,6 +71,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarDeleted);
         }
 
+        [CacheAspect]
         public IDataResult<List<Car>> GetAll()
         {
             if (DateTime.Now.Hour == 00)
@@ -84,12 +90,12 @@ namespace Business.Concrete
 
         public IDataResult<List<CarDetailDto>> GetAllByCarDetails()
         {
-            if (DateTime.Now.Hour == 15)
+            if (DateTime.Now.Hour == 11)
             {
                 return new ErrorDataResult<List<CarDetailDto>>(Messages.MaintenanceTime);
             }
 
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(), Messages.CarsListed);
         }
 
         public IDataResult<List<Car>> GetAllByDealyPrice(int dailyPrice)
@@ -110,7 +116,7 @@ namespace Business.Concrete
 
         public IDataResult<Car> GetByCarId(int Id)
         {
-            return new SuccessDataResult<Car>(_carDal.Get(c => c.Id == Id));
+            return new SuccessDataResult<Car>(_carDal.Get(c => c.CarId == Id));
         }
 
         public IResult Update(Car car)
@@ -165,7 +171,9 @@ namespace Business.Concrete
         
         }
 
-
-       
+        public IResult GetAllByColorId(int colorId)
+        {
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c=>c.ColorId == colorId));
+        }
     }
 }

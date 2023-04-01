@@ -1,7 +1,12 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Aspects.Caching;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,14 +24,47 @@ namespace Business.Concrete
             _brandDal = brandDal;
         }
 
+        public IResult Add(Brand brand)
+        {
+            IResult result = BusinessRules.Run();
+
+
+            if (result != null)
+            {
+                return result;
+            }
+            _brandDal.Add(brand);
+            return new SuccessResult(Messages.BrandAdded);
+        }
+
+        public IResult Delete(Brand brand)
+        {
+            _brandDal.Delete(brand);
+            return new SuccessResult(Messages.BrandDeleted);
+        }
+
+        [CacheAspect]
         public IDataResult<List<Brand>> GetAll()
         {
-            return new SuccessDataResult<List< Brand>>(_brandDal.GetAll());
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(), Messages.BrandsListed);
         }
 
         public IDataResult<Brand> GetByBrandId(int brandId)
         {
             return new SuccessDataResult<Brand>(_brandDal.Get(b => b.BrandId == brandId));
+        }
+
+        public IResult Update(Brand brand)
+        {
+            using (ReCapProjectContext context = new ReCapProjectContext())
+            {
+                var updatedBrandName = context.Entry(brand);
+
+                updatedBrandName.State = EntityState.Modified;
+
+            }
+
+            return new SuccessResult(Messages.BrandUpdated);
         }
     }
 }

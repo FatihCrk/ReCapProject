@@ -13,9 +13,9 @@ namespace DataAccess.Concrete.InMemory
         public InMemoryCarDal()
         {
             _cars = new List<Car>{
-                new Car { Id = 1, ColorId = 1, BrandId = 1,DailyPrice=10000,Description ="Honda Civic", ModelYear=2011 },
-              new Car { Id = 2, ColorId = 2, BrandId = 2,DailyPrice=150000,Description ="Mercedes Benz", ModelYear=2022 },
-              new Car { Id = 3, ColorId = 3, BrandId = 3,DailyPrice=250000,Description ="BMW X5", ModelYear=2022},
+                new Car { CarId = 1, ColorId = 1, BrandId = 1,DailyPrice=10000,Description ="Honda Civic", ModelYear=2011 },
+              new Car { CarId = 2, ColorId = 2, BrandId = 2,DailyPrice=150000,Description ="Mercedes Benz", ModelYear=2022 },
+              new Car { CarId = 3, ColorId = 3, BrandId = 3,DailyPrice=250000,Description ="BMW X5", ModelYear=2022},
             };
         }
 
@@ -31,7 +31,7 @@ namespace DataAccess.Concrete.InMemory
         {
 
            Car carToDelete = null!;
-            _cars.SingleOrDefault(c => c.Id == entity.Id);
+            _cars.SingleOrDefault(c => c.CarId == entity.CarId);
             _cars.Remove(carToDelete);
 
 
@@ -76,8 +76,8 @@ namespace DataAccess.Concrete.InMemory
 
         public void Update(Car entity)
         {
-            Car carToUpdate = _cars.SingleOrDefault(c => c.Id == entity.Id)!;
-            carToUpdate.Id = entity.Id;
+            Car carToUpdate = _cars.SingleOrDefault(c => c.CarId == entity.CarId)!;
+            carToUpdate.CarId = entity.CarId;
             carToUpdate.ColorId = entity.ColorId;
             carToUpdate.BrandId = entity.BrandId;
             carToUpdate.ModelYear = entity.ModelYear;

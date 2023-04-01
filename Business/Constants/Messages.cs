@@ -18,9 +18,12 @@ namespace Business.Constants
         public static string BrandAdded = "Marka eklendi";
         public static string BrandUpdated = "Marka güncellendi";
         public static string BrandDeleted = "Marka silindi";
+
         public static string ColorAdded = "Renk eklendi";
         public static string ColorDeleted = "Renk silindi";
         public static string ColorUpdated = "Renk güncellendi";
+        public static string ColorsListed = "Renkler Listelendi.";
+
         public static string UsersNotAdded = "Kullanıcı eklenemedi";
         public static string UsersInformationNotNull = "Kullanıcı bilgileri boş olamaz";
         public static string UserAdded = "Kullanıcı eklendi";
@@ -63,7 +66,6 @@ namespace Business.Constants
         public static string CarsNotListed = "Arabalar Listelenemedi.";
 
         public static string UnsupoortedImageExtension = "Dosya türü desteklenmediği için eklenemedi.";
-
 
     }
 }

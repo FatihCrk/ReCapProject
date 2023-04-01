@@ -32,6 +32,8 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<FileHelperManager>().As<IFileHelper>();
             builder.RegisterType<UserManager>().As<IUserService>();
             builder.RegisterType<EfUserDal>().As<IUserDal>();
+            builder.RegisterType<EfColorDal>().As<IColorDal>();
+            builder.RegisterType<ColorManager>().As<IColorService>();
 
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();

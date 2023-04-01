@@ -21,14 +21,14 @@ namespace WebAPI.Controllers
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-
+            Thread.Sleep(2000);
             //Dependency Chain -- Bağımlılık zinciri.
             var result = _carService.GetAll();
             //Parametre sonucu başarılı ise result.* ile sonucu mesaj veya data veya başarılı mı bilgisini gönderebiliriz.
             //sadece result ise hepsini gönderir.
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
 
             return BadRequest(result.Message);
@@ -52,6 +52,41 @@ namespace WebAPI.Controllers
             }
 
             return BadRequest(result.Message);
+        }
+
+        [HttpGet("getbybrand")]
+        public IActionResult GetByBrandId(int brandId) { 
+            var result  = _carService.GetAllByBrandId(brandId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+
+        }
+
+
+        [HttpGet("getbycolor")]
+        public IActionResult GetByColorId(int colorId)
+        {
+            var result = _carService.GetAllByColorId(colorId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+
+        }
+
+        [HttpGet("getcardetails")]
+        public IActionResult GetCustomerDetails()
+        {
+            var result = _carService.GetAllByCarDetails();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
         }
 
 

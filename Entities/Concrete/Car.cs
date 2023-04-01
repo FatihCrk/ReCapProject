@@ -3,8 +3,8 @@
 namespace Entities.Concrete
 {
     public class Car : IEntity
-    {
-        public int Id { get; set; }
+    {//Id, BrandId, ColorId, ModelYear, DailyPrice, Description
+        public int CarId { get; set; }
         public int BrandId { get; set; }
         public int ColorId { get; set; }
         public string? CarName { get; set; }
