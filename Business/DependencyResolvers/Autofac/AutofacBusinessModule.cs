@@ -34,6 +34,8 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<EfUserDal>().As<IUserDal>();
             builder.RegisterType<EfColorDal>().As<IColorDal>();
             builder.RegisterType<ColorManager>().As<IColorService>();
+            builder.RegisterType<EfCustomerDal>().As<ICustomerDal>();
+            builder.RegisterType<CustomerManager>().As<ICustomerService>();
 
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
