@@ -67,5 +67,8 @@ namespace Business.Constants
 
         public static string UnsupoortedImageExtension = "Dosya türü desteklenmediği için eklenemedi.";
 
+        public static string ListedSuccessful = "Listeleme Başarılı";
+
+        public static string UpdateSuccessful = "Güncelleştirme başarılı";
     }
 }

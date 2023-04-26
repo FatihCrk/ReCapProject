@@ -11,7 +11,7 @@ namespace Entities.Concrete
     {
         public int Id { get; set; }
         public int CarId { get; set; }
-        public string ImagePath { get; set; }
+        public string ImagePath { get; set; } = string.Empty; //Path Boş olarak ayarlıyoruz. Sonra set ettiğim için.
         public DateTime AddedDate { get; set; }
     
     }

@@ -10,6 +10,7 @@ using Entities.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
@@ -30,14 +31,13 @@ namespace Business.Concrete
         public IResult Add(IFormFile file, CarImage carImage)
         {
 
+            Debug.WriteLine("CarImage Object => ", carImage);
 
             IResult result = BusinessRules.Run(CheckFileExtension(file.FileName), CheckIfCarImageLimit(carImage.CarId));
             if (result != null)
             {
                 return result;
             }
-
-         
 
             carImage.ImagePath = _fileHelper.Upload(file, PathConstants.ImagesPath);
             carImage.AddedDate = DateTime.Now;
@@ -84,7 +84,7 @@ namespace Business.Concrete
             var result = _carImageDal.GetAll(c => c.CarId == carId).Count;
             if (result >= 5)
             {
-                return new ErrorResult();
+                return new ErrorResult(Messages.CarImageLimitExceeded);
             }
             return new SuccessResult();
         }
