@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfRental : EfEntityRepositoryBase<Rental, ReCapProjectContext>, IRentalDal
+    public class EfRentalDal : EfEntityRepositoryBase<Rental, ReCapProjectContext>, IRentalDal
     {
         public List<Rental> GetRentalCarbyRentReturnDate(int carId, DateTime rentDate, DateTime returnDate)
         {
@@ -21,9 +21,9 @@ namespace DataAccess.Concrete.EntityFramework
                              select new Rental
                              {
                                  Id = r.Id,
-                                 CarId = carId,
-                                 RentDate = rentDate,
-                                 ReturnDate = returnDate
+                                 CarId = r.CarId,
+                                 RentDate = (DateTime)r.RentDate,
+                                 ReturnDate = (DateTime)r.ReturnDate
 
                              };
                 return result.ToList();

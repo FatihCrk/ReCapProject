@@ -26,7 +26,6 @@ namespace DataAccess.Concrete.EntityFramework
                              select new CarDetailDto
                              {
                                  CarId = car.CarId,
-                                 CarName = car.CarName,
                                  BrandName = brand.BrandName,
                                  DailyPrice = car.DailyPrice,
                                  ColorName = color.ColorName,
@@ -49,7 +48,7 @@ namespace DataAccess.Concrete.EntityFramework
                              select new CarDetailDto
                              {
                                  CarId = c.CarId,
-                                 CarName = c.Description,
+                                 Description = c.Description,
                                  BrandName = b.BrandName,
                                  ColorName = cl.ColorName,
                                  ModelYear = c.ModelYear,
@@ -71,7 +70,7 @@ namespace DataAccess.Concrete.EntityFramework
                              select new CarDetailDto
                              {
                                  CarId = c.CarId,
-                                 CarName = c.Description,
+                                 Description = c.Description,
                                  BrandName = b.BrandName,
                                  ColorName = cl.ColorName,
                                  ModelYear = c.ModelYear,
@@ -93,7 +92,7 @@ namespace DataAccess.Concrete.EntityFramework
                              select new CarDetailDto
                              {
                                  CarId = c.CarId,
-                                 CarName = c.Description,
+                                 Description = c.Description,
                                  BrandName = b.BrandName,
                                  ColorName = cl.ColorName,
                                  ModelYear = c.ModelYear,
@@ -115,7 +114,7 @@ namespace DataAccess.Concrete.EntityFramework
                              select new CarDetailDto
                              {
                                  CarId = c.CarId,
-                                 CarName = c.Description,
+                                 Description = c.Description,
                                  BrandName = b.BrandName,
                                  ColorName = cl.ColorName,
                                  ModelYear = c.ModelYear,
