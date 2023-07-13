@@ -21,67 +21,7 @@ namespace WebAPI.Controllers
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            Thread.Sleep(2000);
-            //Dependency Chain -- Bağımlılık zinciri.
             var result = _carService.GetAll();
-            //Parametre sonucu başarılı ise result.* ile sonucu mesaj veya data veya başarılı mı bilgisini gönderebiliriz.
-            //sadece result ise hepsini gönderir.
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-
-            return BadRequest(result.Message);
-        }
-
-
-
-        [HttpPost("add")]
-        public IActionResult Add(Car car)
-        {
-            ValidationTool.Validate(new CarValidator(), car);
-           
-
-
-            var result = _carService.Add(car);
-            //Parametre sonucu başarılı ise result.* ile sonucu mesaj veya data veya başarılı mı bilgisini gönderebiliriz.
-            //sadece result ise hepsini gönderir.
-            if (result.Success)
-            {
-                return Ok(result.Message);
-            }
-
-            return BadRequest(result.Message);
-        }
-
-        [HttpGet("getcarbybrand")]
-        public IActionResult GetByBrandId(int brandId) { 
-            var result  = _carService.GetCarsByBrandId(brandId);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-
-        }
-
-
-        [HttpGet("getcarbycolor")]
-        public IActionResult GetByColorId(int colorId)
-        {
-            var result = _carService.GetCarDetailsByColorId(colorId);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-
-        }
-
-        [HttpGet("getcardetailsbycarid")]
-        public IActionResult GetCarDetailsByCarId(int carId)
-        {
-            var result = _carService.GetCarDetailsByCarId(carId);
             if (result.Success)
             {
                 return Ok(result);
@@ -89,9 +29,8 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-
-        [HttpGet("getcardetails")]
-        public IActionResult GetCustomerDetails()
+        [HttpGet("getallcardetail")]
+        public IActionResult GetAllCarDetails()
         {
             var result = _carService.GetCarDetails();
             if (result.Success)
@@ -101,11 +40,21 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-
-        [HttpGet("getcardetailsbybrandandcolorid")]
-        public IActionResult GetCarDetailsByBrandAndColorId(int brandId, int colorId)
+        [HttpGet("getbyid")]
+        public IActionResult GetById(int id)
         {
-            var result = _carService.GetCarDetailsByBrandAndColorId(brandId, colorId);
+            var result = _carService.GetById(id);
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+            return BadRequest(result.Message);
+        }
+
+        [HttpGet("getcarsbybrandid")]
+        public IActionResult GetCarByBrandId(int brandId)
+        {
+            var result = _carService.GetCarByBrandId(brandId);
             if (result.Success)
             {
                 return Ok(result);
@@ -113,6 +62,91 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpGet("getcarsbycolorid")]
+        public IActionResult GetCarByColord(int colorId)
+        {
+            var result = _carService.GetCarByColorId(colorId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getcarsbydailyprice")]
+        public IActionResult GetCarByDailyPrice(decimal min, decimal max)
+        {
+            var result = _carService.GetCarByDailyPrice(min, max);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getcardetails")]
+        public IActionResult GetCarDetails()
+        {
+            var result = _carService.GetCarDetails();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("carlistbrandidcolorid")]
+        public IActionResult CarListBrandIdColorId(int brandId, int colorId)
+        {
+            var result = _carService.CarListBrandIdColorId(brandId, colorId);
+            //var results = _carImageService.GetCarDtoImageList(carList.Data);
+            return Ok(result);
+        }
+
+        [HttpPost("add")]
+        public IActionResult Add(Car car)
+        {
+            var result = _carService.Add(car);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpPost("delete")]
+        public IActionResult Delete(Car car)
+        {
+            var result = _carService.Delete(car);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpPost("update")]
+        public IActionResult Update(Car car)
+        {
+            var result = _carService.Update(car);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+
+        [HttpGet("getcardetailbycarid")]
+        public IActionResult GetCarDetailByCarId(int carId)
+        {
+            var result = _carService.GetCarDetailByCarId(carId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
 
     }
 }

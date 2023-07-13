@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,13 +7,15 @@ using System.Threading.Tasks;
 
 namespace Entities.DTOs
 {
-    public class CustomerDetailDto
+    public class CustomerDetailDto : IDto
     {
-
-        public int Id { get; set; }
-        public string UserFirstName { get; set; }
-        public string UserLastName { get; set; }
-        public string UserEmail { get; set; }
+        public int CustomerId { get; set; }
+        public int UserId { get; set; }
         public string CompanyName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public bool Status { get; set; }
+        public int FindexPoint { get; set; }
     }
 }

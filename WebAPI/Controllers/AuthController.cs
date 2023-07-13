@@ -10,10 +10,12 @@ namespace WebAPI.Controllers
     public class AuthController : Controller
     {
         private IAuthService _authService;
+        private IUserService _userService;
 
-        public AuthController(IAuthService authService)
+        public AuthController(IAuthService authService, IUserService userService)
         {
             _authService = authService;
+            _userService = userService;
         }
 
         [HttpPost("login")]
@@ -28,7 +30,7 @@ namespace WebAPI.Controllers
             var result = _authService.CreateAccessToken(userToLogin.Data);
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
 
             return BadRequest(result.Message);
@@ -47,9 +49,24 @@ namespace WebAPI.Controllers
             var result = _authService.CreateAccessToken(registerResult.Data);
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
 
+            return BadRequest(result.Message);
+        }
+
+        [HttpPost("update")]
+        public ActionResult Update(UserForUpdateDto userForUpdate)
+        {
+            _authService.Update(userForUpdate);
+
+            var user = _userService.GetById(userForUpdate.UserId);
+            var result = _authService.CreateAccessToken(user.Data);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
             return BadRequest(result.Message);
         }
     }

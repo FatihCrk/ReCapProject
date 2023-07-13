@@ -1,17 +1,16 @@
-﻿using Core.Entities;
+﻿using Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Concrete
+namespace Entities.DTOs
 {
-    public class Customer : IEntity
+    public class UserForUpdateDto : UserForRegisterDto, IDto
     {
-        public int Id { get; set; }
+        public int CustomerId { get; set; }
         public int UserId { get; set; }
-        public string CompanyName { get; set; }
         public int FindexPoint { get; set; }
     }
 }

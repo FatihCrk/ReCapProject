@@ -11,14 +11,17 @@ namespace Business.Abstract
 {
     public interface IRentalService
     {
-
+        IDataResult<List<Rental>> GetAll();
         IResult Add(Rental rental);
         IResult Update(Rental rental);
         IResult Delete(Rental rental);
-        IDataResult<List<Rental>> GetAll();
-        IDataResult<List<Rental>> GetRentalCarbyRentReturnDate(int carId, DateTime rentDate, DateTime returnDate);
-        IDataResult<Rental> GetById(int id);
-        IDataResult<List<RentalDetailDto>> GetRentalDetails();
-
+        IDataResult<Rental> GetById(int rentalId);
+        IDataResult<List<RentalDetailDto>> GetRentalDetailsDto();
+        IDataResult<List<RentalDetailDto>> GetRentalDetailsByCarId(int carId);
+        IDataResult<List<Rental>> GetByCarId(int carId);
+        IDataResult<List<Rental>> GetByCustomerId(int customerId);
+        IDataResult<Rental> CheckReturnDate(int carId);
+        IResult CheckRule(Rental rental);
+        IResult CheckRent(int carId);
     }
 }
